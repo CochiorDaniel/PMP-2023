@@ -23,4 +23,3 @@ numar_ss = np.sum(rezultate == 'ss', axis=1)
 numar_sb = np.sum(rezultate == 'sb', axis=1)
 numar_bs = np.sum(rezultate == 'bs', axis=1)
 numar_bb = np.sum(rezultate == 'bb', axis=1)
-
