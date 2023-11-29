@@ -34,4 +34,17 @@ beta2_hdi_exclude_zero = 0 not in estimari['hdi_2.5%']['beta2'] and 0 not in est
 print("Frecvența procesorului este un predictor util:", beta1_hdi_exclude_zero)
 print("Mărimea hard diskului este un predictor util:", beta2_hdi_exclude_zero)
 
+#4
+x1_nou = 33
+x2_nou = np.log(540)
+miu_nou = trace['alfa_tmp'] + trace['beta1']*x1_nou + trace['beta2']*x2_nou
 
+pret_asteptat = np.random.choice(miu_nou, size=5000)
+hdi = az.hdi(pret_asteptat, hdi_prob=0.9)
+print("Intervalul de 90% HDI pentru prețul așteptat este:", hdi)
+
+#5
+pret_simulat = np.random.normal(loc=miu_nou, scale=trace['epsilon'], size=5000)
+
+hdi_pred = az.hdi(pret_simulat, hdi_prob=0.9)
+print("Intervalul de predicție de 90% HDI pentru prețul de vânzare este:", hdi_pred)
