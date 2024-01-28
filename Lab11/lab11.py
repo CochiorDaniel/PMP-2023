@@ -5,14 +5,16 @@ from multiprocessing import freeze_support
 
 def main():
     #1
-    clusters = 3
-    n_cluster = [200, 130, 170]
-    n_total = sum(n_cluster)
-    means = [5, 0, 2]
-    std_devs = [2, 2, 2]
-    mix = np.random.normal(np.repeat(means, n_cluster),
-    np.repeat(std_devs, n_cluster))
-    az.plot_kde(np.array(mix))
+    # generarea datelor
+    # 500 de date din 3 distributii gausiene (orice distributie gausiana are media si deviatia standard)
+    clusters = 3 # numarul de distributii gausiene
+    n_cluster = [200, 130, 170] # numarul de puncte din fiecare distributie
+    n_total = sum(n_cluster) # numarul total de puncte
+    means = [5, 0, 2] # media fiecarei distributii
+    std_devs = [2, 2, 2] # deviatia standard a fiecarei distributii
+    mix = np.random.normal(np.repeat(means, n_cluster), 
+    np.repeat(std_devs, n_cluster)) # distributia mixta
+    az.plot_kde(np.array(mix)) 
 
     #2
     mix = np.array(mix)

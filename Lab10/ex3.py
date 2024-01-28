@@ -14,8 +14,9 @@ def main():
     order_cubic = 3
     x_cubic_p = np.vstack([x_cubic**i for i in range(1, order_cubic + 1)])
     x_cubic_s = (x_cubic_p - x_cubic_p.mean(axis=1, keepdims=True)) / x_cubic_p.std(axis=1, keepdims=True)
-    y_cubic_s = (y_cubic - y_cubic.mean()) / y_cubic.std()
+    y_cubic_s = (y_cubic - y_cubic.mean()) / y_cubic.std()  #standardizarea lui y_1_large
 
+    # model cubic
     with pm.Model() as model_cubic:
         alfa_cubic = pm.Normal('alfa', mu=0, sigma=1)
         β_cubic = pm.Normal('β', mu=0, sigma=1, shape=order_cubic)
@@ -24,6 +25,7 @@ def main():
         y_pred_cubic = pm.Normal('y_pred', mu=μ_cubic, sigma=ε_cubic, observed=y_cubic_s)
         idata_cubic = pm.sample(2000, return_inferencedata=True)
 
+    # model linear
     with pm.Model() as model_linear:
         alfa_linear = pm.Normal('alfa', mu=0, sigma=1)
         β_linear = pm.Normal('β', mu=0, sigma=1, shape=1)
@@ -33,6 +35,7 @@ def main():
         y_pred_linear = pm.Normal('y_pred', mu=μ_linear, sigma=ε_linear, observed=y_cubic_s)
         idata_linear = pm.sample(2000, return_inferencedata=True)
 
+    # model patratic
     with pm.Model() as model_quadratic:
         alfa_quadratic = pm.Normal('alfa', mu=0, sigma=1)
         β_quadratic = pm.Normal('β', mu=0, sigma=1, shape=2)

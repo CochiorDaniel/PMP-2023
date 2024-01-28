@@ -4,6 +4,7 @@ import pandas as pd
 import pymc as pm
 import arviz as az
 
+
 #ex1
 model_trafic = pm.Model()
 

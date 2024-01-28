@@ -15,7 +15,7 @@ def main():
     order = 5
     x_1p_large = np.vstack([x_1_large**i for i in range(1, order + 1)])
     x_1s_large = (x_1p_large - x_1p_large.mean(axis=1, keepdims=True)) / x_1p_large.std(axis=1, keepdims=True)
-    y_1s_large = (y_1_large - y_1_large.mean()) / y_1_large.std()
+    y_1s_large = (y_1_large - y_1_large.mean()) / y_1_large.std()   #standardizarea lui y_1_large
 
     # Model cu sd=10
     with pm.Model() as model_p_large:

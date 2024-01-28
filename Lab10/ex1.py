@@ -7,6 +7,7 @@ from multiprocessing import freeze_support
 
 def main():
 
+    # generare date
     az.style.use('arviz-darkgrid')
     dummy_data = np.loadtxt('C:\\Users\\Daniel\\Desktop\\PMP-2023\\Lab10\\dumy.csv')
     x_1 = dummy_data[:, 0]
@@ -22,13 +23,14 @@ def main():
     plt.ylabel('y')
 
     #a
+    # model patratic
     with pm.Model() as model_p:
         alfa = pm.Normal('alfa', mu=0, sigma=1)
         β = pm.Normal('β', mu=0, sigma=10, shape=order)
-        ε = pm.HalfNormal('ε', 5)
+        ε = pm.HalfNormal('ε', 5) # 5 e ordinul
         μ = alfa + pm.math.dot(β, x_1s)
         y_pred = pm.Normal('y_pred', mu=μ, sigma=ε, observed=y_1s)
-        idata_p = pm.sample(2000, return_inferencedata=True)
+        idata_p = pm.sample(2000, return_inferencedata=True)        # returnez si inferenta
 
     posterior_predictive = pm.sample_posterior_predictive(idata_p, model=model_p)
     az.plot_posterior(posterior_predictive['y_pred'], hdi_prob=0.95, color='lightblue')
